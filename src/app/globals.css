@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+/* Dark mode follows [data-theme] on <html> (set before paint from localStorage / system). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * ARES design tokens — derived from the approved logo palette
+ * (06_RENK_PALETI_OLCUM_REFERANSI.json): ivory #F7F4EE, anthracite #343436,
+ * deep graphite #222124, copper #D48E61, dark bronze #65452F, metallic grey #92918F.
+ * Copper is darkened to #A0572A for text/buttons on ivory (WCAG AA 4.5:1+).
+ */
+:root {
+  --bg: #f7f4ee;
+  --bg-elev: #fcfaf6;
+  --bg-sunken: #efeae1;
+  --ink: #222124;
+  --ink-2: #47454a;
+  --ink-3: #66625d;
+  --line: #e1d9cc;
+  --line-strong: #cfc5b5;
+  --accent: #a0572a;
+  --accent-hover: #87471f;
+  --accent-ink: #ffffff;
+  --accent-soft: #f2e4d7;
+  --bronze: #d48e61;
+  --bronze-deep: #65452f;
+  --metal: #92918f;
+  --graphite: #1b1a1d;
+  --graphite-2: #252428;
+  --on-graphite: #f2eee7;
+  --on-graphite-2: #b9b4ab;
+  --focus: #a0572a;
+  --shadow-color: 30 22 14;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #131315;
+  --bg-elev: #1b1b1e;
+  --bg-sunken: #0e0e10;
+  --ink: #f2eee7;
+  --ink-2: #cdc8bf;
+  --ink-3: #a19c93;
+  --line: #2c2b2f;
+  --line-strong: #3c3a3f;
+  --accent: #dd9c6d;
+  --accent-hover: #e8b089;
+  --accent-ink: #1c130b;
+  --accent-soft: #2b2019;
+  --graphite: #0d0d0f;
+  --graphite-2: #18181b;
+  --focus: #e8b089;
+  --shadow-color: 0 0 0;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-elev: var(--bg-elev);
+  --color-sunken: var(--bg-sunken);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-bronze: var(--bronze);
+  --color-bronze-deep: var(--bronze-deep);
+  --color-metal: var(--metal);
+  --color-graphite: var(--graphite);
+  --color-graphite-2: var(--graphite-2);
+  --color-on-graphite: var(--on-graphite);
+  --color-on-graphite-2: var(--on-graphite-2);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-card: 1.25rem;
+
+  --text-display: clamp(2.5rem, 1.7rem + 3.4vw, 4.75rem);
+  --text-display--line-height: 1.02;
+  --text-h1: clamp(2.1rem, 1.5rem + 2.6vw, 3.6rem);
+  --text-h1--line-height: 1.06;
+  --text-h2: clamp(1.7rem, 1.3rem + 1.6vw, 2.6rem);
+  --text-h2--line-height: 1.12;
+  --text-h3: clamp(1.2rem, 1.1rem + 0.5vw, 1.45rem);
+  --text-h3--line-height: 1.3;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--bronze);
+    color: #1b1a1d;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 0.5rem + 2.4vw, 2.5rem);
+  }
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .display-wide { font-stretch: 112%; font-variation-settings: "wdth" 112; }
+  .card {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    box-shadow: 0 1px 0 rgb(var(--shadow-color) / 0.03), 0 12px 32px -20px rgb(var(--shadow-color) / 0.25);
+  }
+  .card-hover {
+    transition: transform 0.45s var(--ease-out-expo), box-shadow 0.45s var(--ease-out-expo), border-color 0.3s;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    border-color: var(--line-strong);
+    box-shadow: 0 1px 0 rgb(var(--shadow-color) / 0.03), 0 24px 48px -24px rgb(var(--shadow-color) / 0.35);
+  }
+  /* Logo colours — light surfaces (approved artwork) */
+  .logo-auto, .logo-on-dark {
+    --lg-front-1: #555659; --lg-front-2: #292b2d; --lg-front-3: #14191d;
+    --lg-back-1: #343536; --lg-back-2: #101317;
+    --lg-gray-1: #575859; --lg-gray-2: #25282a;
+    --lg-plane-1: #626263; --lg-plane-2: #36383a; --lg-plane-3: #171a1d;
+    --lg-word-1: #313436; --lg-word-2: #15191c;
+    --lg-sub-1: #9f6646; --lg-sub-2: #6d3a24;
+  }
+  /* Dark surfaces: graphite planes lifted to metallic greys, wordmark in ivory */
+  .logo-on-dark, :root[data-theme="dark"] .logo-auto {
+    --lg-front-1: #8a8a8d; --lg-front-2: #5d5e61; --lg-front-3: #3f4043;
+    --lg-back-1: #6c6d70; --lg-back-2: #3a3b3e;
+    --lg-gray-1: #7a7b7d; --lg-gray-2: #48494c;
+    --lg-plane-1: #8b8b8d; --lg-plane-2: #5d5e60; --lg-plane-3: #3c3d40;
+    --lg-word-1: #f4f0e8; --lg-word-2: #ddd7cc;
+    --lg-sub-1: #e2a77c; --lg-sub-2: #c98a5e;
+  }
+
+  /* Soft ivory surface — tonal only, no geometric patterns (client/brand rule). */
+  .paper {
+    background:
+      radial-gradient(120% 80% at 10% 0%, rgb(255 255 255 / 0.55), transparent 60%),
+      radial-gradient(90% 70% at 100% 100%, rgb(212 142 97 / 0.07), transparent 60%),
+      var(--bg);
+  }
+  :root[data-theme="dark"] .paper {
+    background:
+      radial-gradient(90% 70% at 100% 100%, rgb(212 142 97 / 0.06), transparent 60%),
+      var(--bg);
+  }
+
+  .heat-glow {
+    background:
+      radial-gradient(60% 60% at 70% 30%, rgb(212 142 97 / 0.32), transparent 70%),
+      radial-gradient(40% 50% at 20% 90%, rgb(160 87 42 / 0.22), transparent 70%);
+  }
+
+  /* Long-form copy */
+  .prose-ares { color: var(--ink-2); font-size: 1.0625rem; line-height: 1.75; }
+  .prose-ares > * + * { margin-top: 1.1em; }
+  .prose-ares h2 { color: var(--ink); font-size: var(--text-h3); line-height: 1.3; margin-top: 2.2em; font-weight: 650; scroll-margin-top: 7rem; }
+  .prose-ares h3 { color: var(--ink); font-size: 1.125rem; margin-top: 1.8em; font-weight: 650; scroll-margin-top: 7rem; }
+  .prose-ares ul { list-style: none; padding: 0; }
+  .prose-ares ul li { position: relative; padding-left: 1.4em; }
+  .prose-ares ul li::before { content: ""; position: absolute; left: 0.2em; top: 0.72em; width: 0.5em; height: 2px; background: var(--accent); }
+  .prose-ares table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .prose-ares th, .prose-ares td { border-bottom: 1px solid var(--line); padding: 0.6rem 0.75rem; text-align: left; vertical-align: top; }
+  .prose-ares th { color: var(--ink); font-weight: 600; background: var(--bg-sunken); }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes plane-in {
+  from { opacity: 0; transform: translate(-28px, 28px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ember {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.9; }
+}
+.animate-rise { animation: rise 0.9s var(--ease-out-expo) both; }
+.animate-plane { animation: plane-in 1.1s var(--ease-out-expo) both; }
+.animate-ember { animation: ember 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
