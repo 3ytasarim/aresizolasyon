@@ -59,7 +59,7 @@ const T = {
   },
 } as const;
 
-const input = "h-12 w-full rounded-xl border border-line bg-bg px-4 text-[0.95rem] text-ink placeholder:text-ink-3 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20";
+const input = "h-12 w-full rounded-xl border border-line bg-bg px-4 text-base text-ink sm:text-[0.95rem] placeholder:text-ink-3 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20";
 const label = "mb-1.5 block text-sm font-medium text-ink";
 
 export function QuoteForm({ locale, catalogHref, privacyHref }: { locale: Locale; catalogHref: string; privacyHref: string }) {

@@ -92,6 +92,9 @@
 }
 
 @layer base {
+  :where(.grid) > * {
+    min-width: 0;
+  }
   html {
     -webkit-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;

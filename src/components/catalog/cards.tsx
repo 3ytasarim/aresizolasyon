@@ -14,7 +14,7 @@ export function CategoryCard({ c, locale, className, size = "md" }: { c: Categor
     <Link href={href(locale, routes[locale].item(catSlug(c, locale)))} className={cn("card card-hover group flex flex-col overflow-hidden", className)}>
       <div className={cn("relative overflow-hidden", size === "lg" ? "aspect-[16/9]" : "aspect-[16/10]")}>
         <MaterialArt kind={c.key} seed={c.id} className="transition-transform duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]" />
-        <span className="absolute left-4 top-4 rounded-full bg-black/40 px-2.5 py-1 font-mono text-[11px] text-white/85 backdrop-blur">
+        <span className="absolute left-4 top-4 rounded-full bg-black/40 px-2.5 py-1 font-mono text-xs text-white/85 backdrop-blur">
           {String(c.id).padStart(2, "0")} · {items.length} {locale === "tr" ? "ürün grubu" : "groups"}
         </span>
       </div>

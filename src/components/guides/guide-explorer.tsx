@@ -87,7 +87,7 @@ export function GuideExplorer({ items, categories, sectors }: {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Konu ara: yoğunluk, ankraj, TDS, yangın kapısı…"
-            className="h-12 w-full rounded-full border border-line bg-elev pl-11 pr-10 text-[0.95rem] text-ink placeholder:text-ink-3 focus:border-accent focus:outline-none"
+            className="h-12 w-full rounded-full border border-line bg-elev pl-11 pr-10 text-base text-ink sm:text-[0.95rem] placeholder:text-ink-3 focus:border-accent focus:outline-none"
           />
           {q && (
             <button type="button" onClick={() => setQ("")} className="absolute right-2 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-ink-3 hover:bg-sunken" aria-label="Aramayı temizle">

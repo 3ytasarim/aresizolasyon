@@ -15,7 +15,7 @@ export function Breadcrumbs({ items, className, tone = "default" }: { items: Cru
               {last ? (
                 <span aria-current="page" className={tone === "on-dark" ? "text-on-graphite" : "text-ink"}>{it.name}</span>
               ) : (
-                <Link href={it.href} className={cn("underline-offset-4 hover:underline", tone === "on-dark" ? "text-on-graphite-2" : "text-ink-3")}>
+                <Link href={it.href} className={cn("inline-flex min-h-8 items-center underline-offset-4 hover:underline", tone === "on-dark" ? "text-on-graphite-2" : "text-ink-3")}>
                   {it.name}
                 </Link>
               )}

@@ -7,6 +7,7 @@ import { QuoteBadge, QuoteHydrator, ScrollDepth, ThemeToggle } from "@/component
 import { buildMenu } from "@/lib/nav";
 import { ORIGIN, dict, href, routes, type Locale } from "@/lib/i18n";
 import { stats } from "@/lib/content";
+import { cn } from "@/lib/utils";
 
 const splitDomains = process.env.NEXT_PUBLIC_EN_PREFIX === "";
 /** Link to the other market's site: absolute on split domains, relative on a single host. */
@@ -52,23 +53,23 @@ export function Header({ locale }: { locale: Locale }) {
           </p>
           <div className="flex items-center gap-1" aria-label={locale === "tr" ? "Site seçimi" : "Choose site"}>
             <Globe2 aria-hidden className="mr-1 size-3.5" />
-            <Link href={locale === "tr" ? "/" : otherSiteHref(locale)} className={locale === "tr" ? "font-semibold text-on-graphite" : "hover:text-on-graphite"} aria-current={locale === "tr" ? "true" : undefined} hrefLang="tr">
+            <Link href={locale === "tr" ? "/" : otherSiteHref(locale)} className={cn("inline-flex h-9 items-center px-1.5", locale === "tr" ? "font-semibold text-on-graphite" : "hover:text-on-graphite")} aria-current={locale === "tr" ? "true" : undefined} hrefLang="tr">
               Türkiye
             </Link>
             <span aria-hidden className="px-1 opacity-40">/</span>
-            <Link href={locale === "en" ? href("en", "/") : otherSiteHref(locale)} className={locale === "en" ? "font-semibold text-on-graphite" : "hover:text-on-graphite"} aria-current={locale === "en" ? "true" : undefined} hrefLang="en">
+            <Link href={locale === "en" ? href("en", "/") : otherSiteHref(locale)} className={cn("inline-flex h-9 items-center px-1.5", locale === "en" ? "font-semibold text-on-graphite" : "hover:text-on-graphite")} aria-current={locale === "en" ? "true" : undefined} hrefLang="en">
               Global
             </Link>
           </div>
         </div>
       </div>
       <header className="sticky top-0 z-50 border-b border-line bg-bg/95 backdrop-blur-xl supports-[backdrop-filter]:bg-bg/88">
-        <div className="container-x relative flex h-[4.5rem] items-center justify-between gap-6">
+        <div className="container-x relative flex h-[4.5rem] items-center justify-between gap-3 sm:gap-6">
           <Link href={href(locale, "/")} className="shrink-0" aria-label={`${t.brand} — ${t.home}`}>
-            <Logo className="h-9 w-auto sm:h-10" title={t.brand} />
+            <Logo className="h-8 w-auto min-[380px]:h-9 sm:h-10" title={t.brand} />
           </Link>
           <DesktopNav menu={menu} labels={labels} links={links} />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <ThemeToggle labels={locale === "tr" ? { light: "Açık temaya geç", dark: "Koyu temaya geç" } : { light: "Switch to light theme", dark: "Switch to dark theme" }} />
             <QuoteBadge locale={locale} href={links.quote} label={t.quoteList} />
             <ButtonLink href={links.quote} size="sm" className="hidden sm:inline-flex">
@@ -108,25 +109,25 @@ export function Footer({ locale }: { locale: Locale }) {
         <nav className="grid gap-10 sm:grid-cols-3 lg:col-span-8" aria-label={locale === "tr" ? "Alt menü" : "Footer"}>
           <div>
             <p className="mb-4 text-sm font-semibold text-on-graphite">{t.nav.products}</p>
-            <ul className="space-y-2.5 text-sm">
-              {menu.categories.map((c) => <li key={c.key}><Link className="hover:text-on-graphite" href={c.href}>{c.name}</Link></li>)}
+            <ul className="text-sm lg:space-y-2.5">
+              {menu.categories.map((c) => <li key={c.key}><Link className="flex min-h-11 items-center hover:text-on-graphite lg:inline lg:min-h-0" href={c.href}>{c.name}</Link></li>)}
             </ul>
           </div>
           <div>
             <p className="mb-4 text-sm font-semibold text-on-graphite">{t.nav.sectors}</p>
-            <ul className="space-y-2.5 text-sm">
-              {menu.sectors.map((s) => <li key={s.key}><Link className="hover:text-on-graphite" href={s.href}>{s.name}</Link></li>)}
+            <ul className="text-sm lg:space-y-2.5">
+              {menu.sectors.map((s) => <li key={s.key}><Link className="flex min-h-11 items-center hover:text-on-graphite lg:inline lg:min-h-0" href={s.href}>{s.name}</Link></li>)}
             </ul>
           </div>
           <div>
             <p className="mb-4 text-sm font-semibold text-on-graphite">{t.brand}</p>
-            <ul className="space-y-2.5 text-sm">
-              <li><Link className="hover:text-on-graphite" href={href(locale, r.guides)}>{t.nav.guides}</Link></li>
-              <li><Link className="hover:text-on-graphite" href={href(locale, r.about)}>{t.nav.about}</Link></li>
-              <li><Link className="hover:text-on-graphite" href={href(locale, r.contact)}>{t.nav.contact}</Link></li>
-              <li><Link className="hover:text-on-graphite" href={href(locale, r.quote)}>{t.quoteList}</Link></li>
-              <li><Link className="hover:text-on-graphite" href={href(locale, r.privacy)}>{locale === "tr" ? "KVKK ve Gizlilik" : "Privacy"}</Link></li>
-              <li><Link className="hover:text-on-graphite" href={otherSiteHref(locale)} hrefLang={locale === "tr" ? "en" : "tr"}>{t.switchSite}</Link></li>
+            <ul className="text-sm lg:space-y-2.5">
+              <li><Link className="flex min-h-11 items-center hover:text-on-graphite lg:inline lg:min-h-0" href={href(locale, r.guides)}>{t.nav.guides}</Link></li>
+              <li><Link className="flex min-h-11 items-center hover:text-on-graphite lg:inline lg:min-h-0" href={href(locale, r.about)}>{t.nav.about}</Link></li>
+              <li><Link className="flex min-h-11 items-center hover:text-on-graphite lg:inline lg:min-h-0" href={href(locale, r.contact)}>{t.nav.contact}</Link></li>
+              <li><Link className="flex min-h-11 items-center hover:text-on-graphite lg:inline lg:min-h-0" href={href(locale, r.quote)}>{t.quoteList}</Link></li>
+              <li><Link className="flex min-h-11 items-center hover:text-on-graphite lg:inline lg:min-h-0" href={href(locale, r.privacy)}>{locale === "tr" ? "KVKK ve Gizlilik" : "Privacy"}</Link></li>
+              <li><Link className="flex min-h-11 items-center hover:text-on-graphite lg:inline lg:min-h-0" href={otherSiteHref(locale)} hrefLang={locale === "tr" ? "en" : "tr"}>{t.switchSite}</Link></li>
             </ul>
           </div>
         </nav>

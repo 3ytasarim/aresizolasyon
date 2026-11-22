@@ -58,15 +58,15 @@ export function ConsentBanner({ locale }: { locale: Locale }) {
             {tr
               ? "Sitenin çalışması için zorunlu tercihleri (tema, teklif listesi) cihazınızda saklıyoruz. Ziyaret istatistikleri için analiz çerezlerini yalnızca onayınızla kullanırız."
               : "We store strictly necessary preferences (theme, RFQ list) on your device. Analytics cookies are used only with your consent."}{" "}
-            <Link href={href(locale, routes[locale].privacy)}className="text-accent underline underline-offset-4">
+            <Link href={href(locale, routes[locale].privacy)} className="text-accent underline underline-offset-4">
               {tr ? "Ayrıntılar" : "Details"}
             </Link>
           </p>
           <div className="mt-4 flex flex-col gap-2 sm:flex-row">
-            <button type="button" onClick={() => save(true)} className="h-11 flex-1 rounded-full bg-ink px-5 text-sm font-medium text-bg">
+            <button type="button" onClick={() => save(true)} className="h-11 rounded-full sm:flex-1 bg-ink px-5 text-sm font-medium text-bg">
               {tr ? "Analiz çerezlerini kabul et" : "Accept analytics"}
             </button>
-            <button type="button" onClick={() => save(false)} className="h-11 flex-1 rounded-full border border-line-strong px-5 text-sm font-medium text-ink">
+            <button type="button" onClick={() => save(false)} className="h-11 rounded-full sm:flex-1 border border-line-strong px-5 text-sm font-medium text-ink">
               {tr ? "Yalnızca zorunlu" : "Necessary only"}
             </button>
           </div>

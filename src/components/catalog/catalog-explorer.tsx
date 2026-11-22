@@ -30,7 +30,7 @@ export function CatalogExplorer({ items, categories, locale, labels, initialCate
 
   return (
     <div className="grid gap-10 lg:grid-cols-12">
-      <aside className="lg:col-span-3">
+      <aside className="min-w-0 lg:col-span-3">
         <div className="lg:sticky lg:top-28">
           <label className="relative block">
             <span className="sr-only">{labels.search}</span>
@@ -40,7 +40,7 @@ export function CatalogExplorer({ items, categories, locale, labels, initialCate
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder={labels.search}
-              className="h-12 w-full rounded-full border border-line bg-elev pl-11 pr-10 text-[0.95rem] text-ink placeholder:text-ink-3 focus:border-accent focus:outline-none"
+              className="h-12 w-full rounded-full border border-line bg-elev pl-11 pr-10 text-base text-ink sm:text-[0.95rem] placeholder:text-ink-3 focus:border-accent focus:outline-none"
             />
             {q && (
               <button type="button" onClick={() => setQ("")} className="absolute right-2 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-ink-3 hover:bg-sunken" aria-label="Temizle">
@@ -73,7 +73,7 @@ export function CatalogExplorer({ items, categories, locale, labels, initialCate
           </div>
         </div>
       </aside>
-      <div className="lg:col-span-9">
+      <div className="min-w-0 lg:col-span-9">
         <p className="mb-5 text-sm text-ink-3" aria-live="polite">{list.length} {labels.results}</p>
         {list.length === 0 ? (
           <p className="rounded-2xl border border-dashed border-line p-10 text-center text-ink-3">{labels.empty}</p>

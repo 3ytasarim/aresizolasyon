@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, ChevronDown, Flame, Menu as MenuIcon, X } from "lucide-react";
 import type { Menu } from "@/lib/nav";
@@ -153,12 +154,12 @@ export function MobileNav({ menu, labels, links }: { menu: Menu; labels: Labels;
     return () => removeEventListener("keydown", onKey);
   }, [open]);
 
-  return (
-    <div className="lg:hidden">
-      <button type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-nav" className="inline-flex size-11 items-center justify-center rounded-full border border-line text-ink">
-        <MenuIcon aria-hidden className="size-5" />
-        <span className="sr-only">{labels.menu}</span>
-      </button>
+  // true only on the client after hydration — no effect, no hydration mismatch.
+  const mounted = useSyncExternalStore(noopSubscribe, () => true, () => false);
+
+  // The overlay is portalled to <body>: the sticky header uses backdrop-filter, which makes it the
+  // containing block for position:fixed children and would clip a full-screen menu to the header height.
+  const overlay = (
       <AnimatePresence>
         {open && (
           <motion.div
@@ -170,7 +171,7 @@ export function MobileNav({ menu, labels, links }: { menu: Menu; labels: Labels;
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[60] flex flex-col bg-bg"
+            className="fixed inset-0 z-[80] flex flex-col bg-bg"
           >
             <div className="container-x flex h-[4.5rem] shrink-0 items-center justify-end border-b border-line">
               <button type="button" onClick={() => setOpen(false)} className="inline-flex size-11 items-center justify-center rounded-full border border-line" autoFocus>
@@ -220,6 +221,17 @@ export function MobileNav({ menu, labels, links }: { menu: Menu; labels: Labels;
           </motion.div>
         )}
       </AnimatePresence>
+  );
+
+  return (
+    <div className="lg:hidden">
+      <button type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-controls="mobile-nav" className="inline-flex size-11 items-center justify-center rounded-full border border-line text-ink">
+        <MenuIcon aria-hidden className="size-5" />
+        <span className="sr-only">{labels.menu}</span>
+      </button>
+      {mounted && createPortal(overlay, document.body)}
     </div>
   );
 }
+
+const noopSubscribe = () => () => {};
